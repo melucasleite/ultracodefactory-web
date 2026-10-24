@@ -8,10 +8,13 @@ import {
   BubbleIcon,
   FileIcon,
   GearIcon,
+  GitHubIcon,
   ShieldIcon,
   TerminalIcon,
   WandIcon,
 } from "@/components/Icons";
+
+const REPO = "https://github.com/melucasleite/ultracodefactory";
 
 const features = [
   {
@@ -133,8 +136,15 @@ export default function Home() {
             </a>
           </div>
           <a
+            href={REPO}
+            aria-label="Code Factory on GitHub"
+            className="ml-auto grid h-9 w-9 place-items-center rounded-full text-white/75 transition hover:bg-white/10 hover:text-white md:ml-0"
+          >
+            <GitHubIcon />
+          </a>
+          <a
             href="#install"
-            className="ml-auto rounded-full bg-[#ff8500] px-4 py-2 text-sm font-semibold text-black shadow-[0_0_24px_rgba(255,133,0,.45)] transition hover:brightness-110 md:ml-0"
+            className="rounded-full bg-[#ff8500] px-4 py-2 text-sm font-semibold text-black shadow-[0_0_24px_rgba(255,133,0,.45)] transition hover:brightness-110"
           >
             Get it free
           </a>
@@ -177,10 +187,10 @@ export default function Home() {
               <ArrowIcon className="transition group-hover:translate-x-0.5" />
             </a>
             <a
-              href="#how"
-              className="glass rounded-full px-6 py-3 font-semibold transition hover:bg-white/15"
+              href={REPO}
+              className="glass flex items-center gap-2 rounded-full px-6 py-3 font-semibold transition hover:bg-white/15"
             >
-              See how it works
+              <GitHubIcon /> Star on GitHub
             </a>
           </div>
 
@@ -330,14 +340,30 @@ repos/
               <span className="ml-2 font-mono text-xs text-white/40">zsh</span>
             </div>
             <pre className="overflow-x-auto p-6 font-mono text-[14px] leading-loose">
-              <span className="text-white/40"># tools</span>
-              {"\n"}
-              <span className="text-[#ff8500]">$</span> brew install xcodegen
-              tmux
-              {"\n\n"}
-              <span className="text-white/40"># build &amp; launch</span>
-              {"\n"}
-              <span className="text-[#ff8500]">$</span> make run
+              {[
+                ["# tools"],
+                ["$", "brew install xcodegen tmux"],
+                [""],
+                ["# get the source"],
+                [
+                  "$",
+                  "git clone https://github.com/melucasleite/ultracodefactory.git",
+                ],
+                ["$", "cd ultracodefactory"],
+                [""],
+                ["# build & launch"],
+                ["$", "make run"],
+              ].map(([a, b], i) => (
+                <span key={i} className="block">
+                  {b === undefined ? (
+                    <span className="text-white/40">{a || "\u00a0"}</span>
+                  ) : (
+                    <>
+                      <span className="text-[#ff8500]">{a}</span> {b}
+                    </>
+                  )}
+                </span>
+              ))}
             </pre>
           </div>
           <p className="mt-6 text-center text-sm text-white/50">
@@ -366,14 +392,27 @@ repos/
             >
               Get Code Factory <ArrowIcon />
             </a>
+            <a
+              href={REPO}
+              className="glass ml-3 mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold transition hover:bg-white/15"
+            >
+              <GitHubIcon /> View source
+            </a>
           </div>
         </section>
       </main>
 
       <footer className="border-t border-white/10 px-5 py-10 text-center text-sm text-white/40">
         <p>
-          Code Factory is open source under the MIT License. An independent
-          project, not affiliated with or endorsed by Anthropic.
+          Code Factory is{" "}
+          <a
+            href={REPO}
+            className="underline decoration-white/30 hover:text-white"
+          >
+            open source
+          </a>{" "}
+          under the MIT License. An independent project, not affiliated with or
+          endorsed by Anthropic.
         </p>
         <p className="mt-1">
           “Claude” and “Claude Code” are trademarks of their owner.

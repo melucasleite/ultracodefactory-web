@@ -9,6 +9,8 @@
   plain-markdown work cards, staffed by Claude Code agents.
   <br>
   <a href="https://ultracodefactory.com"><strong>ultracodefactory.com →</strong></a>
+  ·
+  <a href="https://github.com/melucasleite/ultracodefactory">App source</a>
 </p>
 
 ---
@@ -27,6 +29,11 @@ A single static page built with Next.js (App Router) and Tailwind CSS v4:
 - **Generated Open Graph image**
   ([`src/app/opengraph-image.tsx`](src/app/opengraph-image.tsx)) for link previews.
 - **Vercel Web Analytics** for privacy-friendly page views, with no cookies.
+
+## The app
+
+Code Factory itself (SwiftUI, MIT) lives at
+[melucasleite/ultracodefactory](https://github.com/melucasleite/ultracodefactory).
 
 ## Develop
 
