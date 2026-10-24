@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="public/app-icon.png" width="112" height="112" alt="Code Factory icon">
+</p>
 
-## Getting Started
+<h1 align="center">ultracodefactory.com</h1>
 
-First, run the development server:
+<p align="center">
+  The landing page for <strong>Code Factory</strong>, a native macOS kanban board for
+  plain-markdown work cards, staffed by Claude Code agents.
+  <br>
+  <a href="https://ultracodefactory.com"><strong>ultracodefactory.com →</strong></a>
+</p>
+
+---
+
+## What's here
+
+A single static page built with Next.js (App Router) and Tailwind CSS v4:
+
+- **Aurora and glass styling** to match the app's Liquid Glass look, in plain
+  CSS ([`src/app/globals.css`](src/app/globals.css)).
+- **App window mock** ([`src/components/AppMock.tsx`](src/components/AppMock.tsx)),
+  built in HTML and CSS rather than a screenshot, so it stays sharp at any size.
+- **Interactive question demo**
+  ([`src/components/QuestionDemo.tsx`](src/components/QuestionDemo.tsx)) showing
+  how Code Factory turns Claude's terminal prompts into native buttons.
+- **Generated Open Graph image**
+  ([`src/app/opengraph-image.tsx`](src/app/opengraph-image.tsx)) for link previews.
+- **Vercel Web Analytics** for privacy-friendly page views, with no cookies.
+
+## Develop
 
 ```bash
-npm run dev
-# or
+yarn install
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build and deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn build
+vercel deploy --prod --scope lucas-crafts
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Formatting and linting:
 
-## Learn More
+```bash
+yarn prettier --write src
+yarn lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT. Code Factory is an independent project, not affiliated with or
+endorsed by Anthropic.
