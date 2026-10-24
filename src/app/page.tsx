@@ -2,6 +2,7 @@ import Image from "next/image";
 import AppMock from "@/components/AppMock";
 import FactoryLine from "@/components/FactoryLine";
 import MagicMoments from "@/components/MagicMoments";
+import { faqs, site } from "@/lib/site";
 import QuestionDemo from "@/components/QuestionDemo";
 import {
   ArrowIcon,
@@ -16,7 +17,71 @@ import {
   WandIcon,
 } from "@/components/Icons";
 
-const REPO = "https://github.com/melucasleite/ultracodefactory";
+const REPO = site.repo;
+
+/** Structured data: the app, its site, and the FAQ shown on the page. */
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${site.url}/#app`,
+      name: site.name,
+      description: site.description,
+      url: site.url,
+      image: `${site.url}/app-icon.png`,
+      screenshot: `${site.url}/opengraph-image`,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "macOS 15 or later",
+      softwareRequirements: "Claude Code, tmux",
+      license: "https://opensource.org/licenses/MIT",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      downloadUrl: site.repo,
+      sameAs: [site.repo],
+      author: {
+        "@type": "Person",
+        name: site.author,
+        url: "https://github.com/melucasleite",
+      },
+      featureList: [
+        "Kanban board for markdown work cards",
+        "Claude Code agents that turn cards into pull requests",
+        "New project wizard with AI backlog planning",
+        "Native multiple-choice answers for agent questions",
+        "Live terminal consoles for every agent",
+        "Liquid Glass design on macOS 26",
+      ],
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": `${site.url}/#source`,
+      name: `${site.name} source code`,
+      codeRepository: site.repo,
+      programmingLanguage: "Swift",
+      license: "https://opensource.org/licenses/MIT",
+      targetProduct: { "@id": `${site.url}/#app` },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      description: site.description,
+      inLanguage: "en",
+      publisher: { "@type": "Person", name: site.author },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${site.url}/#faq`,
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ],
+};
 
 const features = [
   {
@@ -37,7 +102,7 @@ const features = [
   {
     icon: BubbleIcon,
     title: "Questions become buttons",
-    body: "When an agent asks a multiple-choice question, Code Factory turns the TUI prompt into native buttons. ⌘1–⌘9 and you're done.",
+    body: "When an agent asks a multiple-choice question, Ultra Code Factory turns the TUI prompt into native buttons. ⌘1–⌘9 and you're done.",
   },
   {
     icon: BellIcon,
@@ -139,6 +204,12 @@ function Section({
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       {/* Nav */}
       <header className="fixed inset-x-0 top-4 z-50 px-4">
         <nav className="glass mx-auto flex max-w-4xl items-center gap-6 rounded-full py-2 pl-2 pr-2 sm:pl-3">
@@ -154,7 +225,7 @@ export default function Home() {
               priority
               className="rounded-[9px]"
             />
-            Code Factory
+            Ultra Code Factory
           </a>
           <div className="ml-auto hidden items-center gap-6 text-sm text-white/70 md:flex">
             <a href="#magic" className="hover:text-white">
@@ -166,13 +237,13 @@ export default function Home() {
             <a href="#tenets" className="hover:text-white">
               Beliefs
             </a>
-            <a href="#safety" className="hover:text-white">
-              Safety
+            <a href="#faq" className="hover:text-white">
+              FAQ
             </a>
           </div>
           <a
             href={REPO}
-            aria-label="Code Factory on GitHub"
+            aria-label="Ultra Code Factory on GitHub"
             className="ml-auto grid h-9 w-9 place-items-center rounded-full text-white/75 transition hover:bg-white/10 hover:text-white md:ml-0"
           >
             <GitHubIcon />
@@ -192,7 +263,7 @@ export default function Home() {
           <div className="float mx-auto mb-8 w-fit">
             <Image
               src="/app-icon.png"
-              alt="Code Factory app icon"
+              alt="Ultra Code Factory app icon"
               width={128}
               height={128}
               priority
@@ -201,9 +272,10 @@ export default function Home() {
           </div>
           <div className="glass mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs text-white/75">
             <span className="h-1.5 w-1.5 rounded-full bg-[#4dcc73] shadow-[0_0_8px_#4dcc73]" />
-            For solo builders with ambitious projects
+            AI coding agents for solo builders with ambitious projects
           </div>
           <h1 className="mx-auto max-w-4xl text-5xl font-extrabold leading-[1.02] tracking-tighter sm:text-7xl">
+            <span className="sr-only">Ultra Code Factory: </span>
             Write the backlog.
             <br />
             Grab a coffee.
@@ -212,8 +284,8 @@ export default function Home() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-white/65 sm:text-xl">
             Your project is bigger than one person and your backlog is longer
-            than a weekend. Code Factory is a native Mac app that hands your
-            cards to a crew of Claude Code agents, so the work keeps moving
+            than a weekend. Ultra Code Factory is a native Mac app that hands
+            your cards to a crew of Claude Code agents, so the work keeps moving
             while you&apos;re away from the desk.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -273,7 +345,7 @@ export default function Home() {
           id="magic"
           eyebrow="The magic"
           title="Small moments that feel like a crew"
-          sub="The parts of Code Factory that make one person feel like a team."
+          sub="The parts of Ultra Code Factory that make one person feel like a team."
         >
           <MagicMoments />
         </Section>
@@ -308,7 +380,7 @@ export default function Home() {
               <span className="text-[#ff8500]">native buttons.</span>
             </>
           }
-          sub="Code Factory reads Claude's multiple-choice prompt straight off the tmux pane and gives you real controls. Go on, answer it."
+          sub="Ultra Code Factory reads Claude's multiple-choice prompt straight off the tmux pane and gives you real controls. Go on, answer it."
         >
           <QuestionDemo />
         </Section>
@@ -369,7 +441,7 @@ export default function Home() {
           id="tenets"
           eyebrow="What we believe"
           title="Docs first. Code second."
-          sub="Code Factory is built on a few convictions about how one person ships like a team."
+          sub="Ultra Code Factory is built on a few convictions about how one person ships like a team."
         >
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {tenets.map((t, i) => (
@@ -448,6 +520,29 @@ export default function Home() {
           </p>
         </Section>
 
+        <Section
+          id="faq"
+          eyebrow="Questions"
+          title="Frequently asked questions"
+        >
+          <div className="mx-auto flex max-w-3xl flex-col gap-3">
+            {faqs.map((f) => (
+              <details
+                key={f.q}
+                className="glass group rounded-2xl px-6 py-4 open:bg-white/[0.08]"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold">
+                  <h3 className="text-base">{f.q}</h3>
+                  <span className="text-[#ff8500] transition group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 leading-relaxed text-white/65">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </Section>
+
         {/* Final CTA */}
         <section className="px-5 pb-24">
           <div className="glass-strong relative mx-auto max-w-5xl overflow-hidden rounded-[36px] p-12 text-center sm:p-16">
@@ -464,7 +559,7 @@ export default function Home() {
               href="#install"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#ff8500] px-7 py-3.5 font-semibold text-black shadow-[0_0_40px_rgba(255,133,0,.5)] transition hover:scale-[1.03]"
             >
-              Get Code Factory <ArrowIcon />
+              Get Ultra Code Factory <ArrowIcon />
             </a>
             <a
               href={REPO}
@@ -478,7 +573,7 @@ export default function Home() {
 
       <footer className="border-t border-white/10 px-5 py-10 text-center text-sm text-white/40">
         <p>
-          Code Factory is{" "}
+          Ultra Code Factory is{" "}
           <a
             href={REPO}
             className="underline decoration-white/30 hover:text-white"

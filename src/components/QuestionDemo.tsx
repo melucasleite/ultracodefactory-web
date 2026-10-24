@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const options = ["Move to To-Do", "Keep in Proposed", "Won't do"];
 
-/** Claude's TUI prompt on the left, the native buttons Code Factory draws on the right. */
+/** Claude's TUI prompt on the left, the native buttons Ultra Code Factory draws on the right. */
 export default function QuestionDemo() {
   const [pointer, setPointer] = useState(0);
   const [answered, setAnswered] = useState<number | null>(null);
@@ -84,7 +84,7 @@ export default function QuestionDemo() {
         </div>
         <p className="mt-4 text-xs text-white/45">
           {answered === null
-            ? "Click an option. Code Factory steers the TUI cursor and presses Enter for you."
+            ? "Click an option. Ultra Code Factory steers the TUI cursor and presses Enter for you."
             : "Sent ↓ ×" +
               answered +
               " then ⏎ to the tmux session. Try another."}

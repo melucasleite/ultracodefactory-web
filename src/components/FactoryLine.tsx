@@ -142,13 +142,13 @@ export default function FactoryLine() {
   return (
     <div
       className="factory-line relative mx-auto w-full max-w-6xl"
-      aria-label="Animation: work cards enter the Code Factory and come out as pull requests"
+      aria-label="Animation: work cards enter the Ultra Code Factory and come out as pull requests"
     >
       {/* Stage labels */}
       <div className="relative mb-4 flex items-end justify-between px-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
         <span>Backlog ↓</span>
         <span className="absolute bottom-0 left-1/2 hidden -translate-x-1/2 sm:inline">
-          Code Factory
+          Ultra Code Factory
         </span>
         <span className="text-right">
           Pull requests ↓

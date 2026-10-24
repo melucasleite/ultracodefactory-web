@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { site } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,25 +14,42 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const description =
-  "For solo builders with ambitious projects: write the backlog, grab a coffee, and come back to a stack of pull requests built by Claude Code agents. A native, open-source Mac app.";
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ultracodefactory.com"),
-  title: "Code Factory: write the backlog, grab a coffee, review the PRs",
-  description,
+  metadataBase: new URL(site.url),
+  title: {
+    default: `${site.name}: AI coding agents that turn your backlog into pull requests`,
+    template: `%s · ${site.name}`,
+  },
+  description: site.description,
+  applicationName: site.name,
+  keywords: site.keywords,
+  authors: [{ name: site.author, url: "https://github.com/melucasleite" }],
+  creator: site.author,
+  publisher: site.author,
+  category: "Developer Tools",
   alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "Code Factory",
-    description,
+    title: `${site.name}: ${site.tagline}`,
+    description: site.description,
     url: "/",
-    siteName: "Code Factory",
+    siteName: site.name,
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Code Factory",
-    description,
+    title: `${site.name}: ${site.tagline}`,
+    description: site.description,
   },
 };
 
