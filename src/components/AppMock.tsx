@@ -9,7 +9,7 @@ const columns = [
     color: "#598fff",
     fabricating: "/work-create Add rate limiting to the API",
     cards: [
-      { t: "Crash when the config file is empty", k: "bug" },
+      { t: "Crash when the config file is empty", k: "bug", fresh: true },
       { t: "Write the getting-started guide", k: "docs" },
     ],
   },
@@ -21,7 +21,7 @@ const columns = [
   {
     title: "Waiting",
     color: "#ffc400",
-    cards: [{ t: "Pick a charting library", k: "spike" }],
+    cards: [{ t: "Water reminders with push", k: "feature", pr: 12 }],
   },
   {
     title: "Done",
@@ -32,6 +32,8 @@ const columns = [
     ],
   },
 ];
+
+type MockCard = { t: string; k: string; fresh?: boolean; pr?: number };
 
 const kindColor: Record<string, string> = {
   feature: "#4f8cff",
@@ -129,11 +131,20 @@ export default function AppMock() {
                   </div>
                 </div>
               )}
-              {col.cards.map((c) => (
+              {(col.cards as MockCard[]).map((c) => (
                 <div
                   key={c.t}
-                  className="glass rounded-xl p-3 transition hover:-translate-y-0.5 hover:scale-[1.02]"
+                  className={`glass relative rounded-xl p-3 transition hover:-translate-y-0.5 hover:scale-[1.02] ${
+                    c.fresh
+                      ? "!border-[#ff8500]/70 shadow-[0_0_24px_rgba(255,133,0,.45)]"
+                      : ""
+                  }`}
                 >
+                  {c.fresh && (
+                    <span className="absolute right-2 top-1.5 text-[11px] text-[#ff8500]">
+                      ✨
+                    </span>
+                  )}
                   <div className="flex gap-2">
                     <span
                       className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
@@ -156,6 +167,11 @@ export default function AppMock() {
                   >
                     {c.k}
                   </span>
+                  {c.pr && (
+                    <span className="mt-2 ml-1.5 inline-block rounded-full border border-[#3fb950]/50 bg-[#3fb950]/15 px-2 py-0.5 text-[10px] font-bold text-[#3fb950]">
+                      ⇄ Review PR #{c.pr}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>

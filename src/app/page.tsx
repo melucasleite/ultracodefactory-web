@@ -1,6 +1,7 @@
 import Image from "next/image";
 import AppMock from "@/components/AppMock";
 import FactoryLine from "@/components/FactoryLine";
+import MagicMoments from "@/components/MagicMoments";
 import QuestionDemo from "@/components/QuestionDemo";
 import {
   ArrowIcon,
@@ -156,8 +157,8 @@ export default function Home() {
             Code Factory
           </a>
           <div className="ml-auto hidden items-center gap-6 text-sm text-white/70 md:flex">
-            <a href="#features" className="hover:text-white">
-              Features
+            <a href="#magic" className="hover:text-white">
+              Magic
             </a>
             <a href="#how" className="hover:text-white">
               How it works
@@ -266,6 +267,15 @@ export default function Home() {
               <AppMock />
             </div>
           </div>
+        </Section>
+
+        <Section
+          id="magic"
+          eyebrow="The magic"
+          title="Small moments that feel like a crew"
+          sub="The parts of Code Factory that make one person feel like a team."
+        >
+          <MagicMoments />
         </Section>
 
         <Section

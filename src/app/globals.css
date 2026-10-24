@@ -358,3 +358,39 @@ body {
     clip-path: none;
   }
 }
+
+/* ---------- Magic moments ---------- */
+
+.arrive {
+  animation: arrive 4.2s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+@keyframes arrive {
+  0% {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.6);
+    box-shadow: 0 0 0 rgba(255, 133, 0, 0);
+  }
+  12% {
+    opacity: 1;
+    transform: translateY(0) scale(1.04);
+    box-shadow: 0 0 34px rgba(255, 133, 0, 0.6);
+    border-color: rgba(255, 133, 0, 0.8);
+  }
+  20% {
+    transform: none;
+  }
+  70% {
+    box-shadow: 0 0 22px rgba(255, 133, 0, 0.35);
+    border-color: rgba(255, 133, 0, 0.6);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrive {
+    animation: none;
+  }
+}
