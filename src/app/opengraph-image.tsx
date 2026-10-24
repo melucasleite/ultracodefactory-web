@@ -27,11 +27,20 @@ export default async function Image() {
         }}
       >
         <img src={src} width={260} height={260} alt="" />
-        <div style={{ display: "flex", flexDirection: "column", maxWidth: 680 }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", maxWidth: 680 }}
+        >
           <div style={{ fontSize: 76, fontWeight: 800, letterSpacing: -3 }}>
             Ultra Code Factory
           </div>
-          <div style={{ fontSize: 40, lineHeight: 1.2, color: "#ffb13b", marginTop: 8 }}>
+          <div
+            style={{
+              fontSize: 40,
+              lineHeight: 1.2,
+              color: "#ffb13b",
+              marginTop: 8,
+            }}
+          >
             Write the backlog. Grab a coffee. Come back to PRs.
           </div>
           <div

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import AppMock from "@/components/AppMock";
 import FactoryLine from "@/components/FactoryLine";
 import MagicMoments from "@/components/MagicMoments";
 import { faqs, site } from "@/lib/site";
@@ -30,7 +29,11 @@ const jsonLd = {
       description: site.description,
       url: site.url,
       image: `${site.url}/app-icon.png`,
-      screenshot: `${site.url}/opengraph-image`,
+      screenshot: [
+        `${site.url}/screens/board.jpg`,
+        `${site.url}/screens/wizard.jpg`,
+        `${site.url}/screens/console.jpg`,
+      ],
       applicationCategory: "DeveloperApplication",
       operatingSystem: "macOS 15 or later",
       softwareRequirements: "Claude Code, tmux",
@@ -335,9 +338,73 @@ export default function Home() {
           sub="What’s queued, what’s being built and what’s waiting on you, at a glance."
         >
           <div className="[perspective:2000px]">
-            <div className="[transform:rotateX(8deg)] transition duration-700 hover:[transform:rotateX(0deg)]">
-              <AppMock />
+            <div className="[transform:rotateX(6deg)] transition duration-700 hover:[transform:rotateX(0deg)]">
+              <Image
+                src="/screens/board.jpg"
+                alt="Ultra Code Factory on a busy day: glass kanban columns, two cards being fabricated by agents, a fresh card glowing, Review PR buttons, and the Factory Floor listing four live agents"
+                width={2000}
+                height={1203}
+                sizes="(max-width: 1200px) 100vw, 1152px"
+                className="mx-auto w-full max-w-6xl rounded-[18px] shadow-[0_40px_120px_-30px_rgba(255,133,0,.45)]"
+              />
             </div>
+          </div>
+        </Section>
+
+        <Section
+          id="screens"
+          eyebrow="See it in action"
+          title="From one sentence to a working crew"
+          sub="Real screenshots from the app, with a busy demo factory."
+        >
+          <div className="grid gap-6 md:grid-cols-2">
+            {[
+              {
+                src: "/screens/wizard.jpg",
+                w: 2000,
+                h: 1203,
+                title: "Pitch it, and the wizard fills itself in",
+                alt: "New Project wizard with suggested features pre-selected as orange chips",
+              },
+              {
+                src: "/screens/finale-open.jpg",
+                w: 2000,
+                h: 1203,
+                title: "Your factory is open",
+                alt: "Build finale: a green seal and a ticked checklist while the new board fills in",
+              },
+              {
+                src: "/screens/console.jpg",
+                w: 2000,
+                h: 1387,
+                title: "Agents ask, you click",
+                alt: "Agent console showing a triage question as native glass buttons",
+              },
+              {
+                src: "/screens/away.jpg",
+                w: 2000,
+                h: 691,
+                title: "Back from coffee: what you missed",
+                alt: "While you were away banner: pull requests ready for review",
+              },
+            ].map((shot) => (
+              <figure
+                key={shot.src}
+                className="glass overflow-hidden rounded-3xl p-3"
+              >
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={shot.w}
+                  height={shot.h}
+                  sizes="(max-width: 768px) 100vw, 560px"
+                  className="w-full rounded-2xl"
+                />
+                <figcaption className="px-2 pb-1 pt-3 text-sm font-semibold text-white/80">
+                  {shot.title}
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </Section>
 
