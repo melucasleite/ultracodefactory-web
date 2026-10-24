@@ -1,5 +1,6 @@
 import Image from "next/image";
 import AppMock from "@/components/AppMock";
+import FactoryLine from "@/components/FactoryLine";
 import QuestionDemo from "@/components/QuestionDemo";
 import {
   ArrowIcon,
@@ -60,19 +61,19 @@ const safety = [
 
 const steps = [
   {
-    n: "01",
-    title: "Point it at a vault",
-    body: "Any folder of markdown cards, an Obsidian vault included. Or click Try the Demo Factory.",
+    n: "8:58 AM",
+    title: "You empty your head",
+    body: "Every idea, bug and someday-maybe goes in as one line. Create Work turns each into a proper card while you type the next.",
   },
   {
-    n: "02",
-    title: "Feed the line",
-    body: "Create Work turns ideas into cards. Triage walks the backlog with you, one question at a time.",
+    n: "9:04 AM",
+    title: "You hit Run and walk away",
+    body: "Agents pick up cards, write the code, run the tests and open pull requests. If one has a question, your Mac taps you and a click answers it.",
   },
   {
-    n: "03",
-    title: "Run the line",
-    body: "Run Work hands the next card to an agent in the project's repo. You review, answer, ship.",
+    n: "9:31 AM",
+    title: "You come back to a stack of PRs",
+    body: "Green checks, one card per PR. Merge what’s good, bounce what isn’t, and queue the next batch before your coffee’s cold.",
   },
 ];
 
@@ -113,7 +114,10 @@ export default function Home() {
       {/* Nav */}
       <header className="fixed inset-x-0 top-4 z-50 px-4">
         <nav className="glass mx-auto flex max-w-4xl items-center gap-6 rounded-full py-2 pl-2 pr-2 sm:pl-3">
-          <a href="#" className="flex items-center gap-2 font-semibold">
+          <a
+            href="#"
+            className="flex items-center gap-2 whitespace-nowrap font-semibold"
+          >
             <Image
               src="/app-icon.png"
               alt=""
@@ -144,7 +148,7 @@ export default function Home() {
           </a>
           <a
             href="#install"
-            className="rounded-full bg-[#ff8500] px-4 py-2 text-sm font-semibold text-black shadow-[0_0_24px_rgba(255,133,0,.45)] transition hover:brightness-110"
+            className="whitespace-nowrap rounded-full bg-[#ff8500] px-4 py-2 text-sm font-semibold text-black shadow-[0_0_24px_rgba(255,133,0,.45)] transition hover:brightness-110"
           >
             Get it free
           </a>
@@ -166,17 +170,20 @@ export default function Home() {
           </div>
           <div className="glass mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs text-white/75">
             <span className="h-1.5 w-1.5 rounded-full bg-[#4dcc73] shadow-[0_0_8px_#4dcc73]" />
-            Native macOS · Liquid Glass · Open source
+            For solo builders with ambitious projects
           </div>
           <h1 className="mx-auto max-w-4xl text-5xl font-extrabold leading-[1.02] tracking-tighter sm:text-7xl">
-            Your backlog,
+            Write the backlog.
             <br />
-            <span className="text-shine">on an assembly line.</span>
+            Grab a coffee.
+            <br />
+            <span className="text-shine">Come back to PRs.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-white/65 sm:text-xl">
-            Code Factory is a native Mac kanban board for plain-markdown work
-            cards, staffed by Claude Code agents. Drop in ideas, and they come
-            out as shipped code.
+            Your project is bigger than one person and your backlog is longer
+            than a weekend. Code Factory is a native Mac app that hands your
+            cards to a crew of Claude Code agents, so the work keeps moving
+            while you&apos;re away from the desk.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <a
@@ -194,10 +201,8 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="mt-20 [perspective:2000px]">
-            <div className="[transform:rotateX(8deg)] transition duration-700 hover:[transform:rotateX(0deg)]">
-              <AppMock />
-            </div>
+          <div className="mt-16">
+            <FactoryLine />
           </div>
         </section>
 
@@ -222,10 +227,22 @@ export default function Home() {
         </div>
 
         <Section
+          eyebrow="The board"
+          title="The whole line in one window"
+          sub="What’s queued, what’s being built and what’s waiting on you, at a glance."
+        >
+          <div className="[perspective:2000px]">
+            <div className="[transform:rotateX(8deg)] transition duration-700 hover:[transform:rotateX(0deg)]">
+              <AppMock />
+            </div>
+          </div>
+        </Section>
+
+        <Section
           id="features"
           eyebrow="The line"
-          title="Everything a factory floor needs"
-          sub="Built natively for the Mac, around files you already own."
+          title="A team’s throughput. A team of one."
+          sub="Everything you need to run more work than one pair of hands allows, on files you already own."
         >
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {features.map(({ icon: Icon, title, body }) => (
@@ -258,8 +275,8 @@ export default function Home() {
 
         <Section
           id="how"
-          eyebrow="How it works"
-          title="Three stations. Zero ceremony."
+          eyebrow="A morning at the factory"
+          title="Your crew clocks in when you do"
         >
           <div className="grid gap-4 md:grid-cols-3">
             {steps.map((s) => (
@@ -267,7 +284,7 @@ export default function Home() {
                 key={s.n}
                 className="glass relative overflow-hidden rounded-3xl p-8"
               >
-                <span className="absolute -right-2 -top-6 font-mono text-[110px] font-black text-white/[0.04]">
+                <span className="absolute -right-2 -top-4 font-mono text-[64px] font-black text-white/[0.04]">
                   {s.n}
                 </span>
                 <span className="font-mono text-sm text-[#ff8500]">{s.n}</span>
@@ -380,11 +397,11 @@ repos/
             <div className="hazard absolute inset-x-0 bottom-0 h-2 opacity-80" />
             <GearIcon className="spin-slow mx-auto mb-6 h-12 w-12 text-[#ff8500]" />
             <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
-              Start the line.
+              Big ambitions. Team of one.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-white/60">
-              Queue up a backlog, go make coffee, and come back to code to
-              review.
+              Fill the backlog, go get a coffee, and come back to a stack of PRs
+              to review.
             </p>
             <a
               href="#install"

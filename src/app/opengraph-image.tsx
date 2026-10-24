@@ -2,7 +2,8 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "Code Factory: your backlog on an assembly line";
+export const alt =
+  "Code Factory: write the backlog, grab a coffee, come back to PRs";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -30,8 +31,8 @@ export default async function Image() {
           <div style={{ fontSize: 76, fontWeight: 800, letterSpacing: -3 }}>
             Code Factory
           </div>
-          <div style={{ fontSize: 40, color: "#ffb13b", marginTop: 8 }}>
-            Your backlog, on an assembly line.
+          <div style={{ fontSize: 34, color: "#ffb13b", marginTop: 8 }}>
+            Write the backlog. Grab a coffee. Come back to PRs.
           </div>
           <div
             style={{
@@ -40,7 +41,7 @@ export default async function Image() {
               marginTop: 24,
             }}
           >
-            Native macOS · Claude Code agents · Plain markdown · MIT
+            For solo builders · Native macOS · Claude Code agents · MIT
           </div>
         </div>
       </div>

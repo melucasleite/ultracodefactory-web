@@ -172,3 +172,189 @@ body {
     animation: none;
   }
 }
+
+/* ---------- Factory line ---------- */
+
+.belt {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.07) 0 2px,
+      transparent 2px 38px
+    ),
+    linear-gradient(180deg, #23262d, #121418);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.08),
+    0 18px 40px -12px rgba(0, 0, 0, 0.8);
+  background-size:
+    40px 100%,
+    100% 100%;
+  animation: belt-run 1.2s linear infinite;
+}
+
+@keyframes belt-run {
+  to {
+    background-position:
+      40px 0,
+      0 0;
+  }
+}
+
+.roller {
+  background: radial-gradient(circle at 35% 35%, #4a4f59, #16181c 70%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Each item rides from off-screen left to off-screen right. The machine
+   sits over the middle, so the swap from card to PR happens out of sight. */
+.line-item {
+  left: -260px;
+  translate: 0 -72%;
+  animation-name: ride;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes ride {
+  from {
+    left: -260px;
+  }
+  to {
+    left: calc(100% + 20px);
+  }
+}
+
+.line-face {
+  grid-area: 1 / 1;
+}
+
+.line-item {
+  display: grid;
+}
+
+.line-card {
+  animation: inherit;
+  animation-name: card-face;
+  animation-timing-function: linear;
+}
+
+.line-pr {
+  animation: inherit;
+  animation-name: pr-face;
+  animation-timing-function: linear;
+}
+
+@keyframes card-face {
+  0%,
+  49% {
+    opacity: 1;
+    transform: none;
+  }
+  50%,
+  100% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes pr-face {
+  0%,
+  50% {
+    opacity: 0;
+    transform: scale(0.6) translateY(10px);
+  }
+  58% {
+    opacity: 1;
+    transform: scale(1.12) translateY(-14px);
+  }
+  64% {
+    transform: scale(0.97) translateY(0);
+  }
+  70%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.machine {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14),
+    rgba(255, 255, 255, 0.05) 60%,
+    rgba(255, 133, 0, 0.12)
+  );
+  backdrop-filter: blur(22px) saturate(1.7);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 60px -10px rgba(255, 133, 0, 0.55),
+    0 30px 60px -20px rgba(0, 0, 0, 0.8);
+  animation: hum 3s ease-in-out infinite;
+}
+
+@keyframes hum {
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      0 0 90px -6px rgba(255, 133, 0, 0.8),
+      0 30px 60px -20px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Dark, frosted opening: hides items while they're being transformed. */
+.mouth {
+  background: linear-gradient(180deg, rgba(10, 11, 14, 0.75), #0a0b0e 40%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 12px 24px -8px rgba(0, 0, 0, 0.9);
+}
+
+.led {
+  height: 8px;
+  width: 8px;
+  border-radius: 9999px;
+  background: #ff8500;
+  box-shadow: 0 0 10px #ff8500;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.spin-reverse {
+  animation: spin 4s linear infinite reverse;
+}
+
+.typing {
+  animation: type-in 0.9s steps(24) infinite;
+  clip-path: inset(0 100% 0 0);
+}
+
+@keyframes type-in {
+  70%,
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .belt,
+  .line-item,
+  .line-card,
+  .line-pr,
+  .machine,
+  .led,
+  .spin-reverse,
+  .typing {
+    animation: none;
+  }
+  .typing {
+    clip-path: none;
+  }
+}

@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "A native macOS kanban board for plain-markdown work cards, staffed by Claude Code agents. Liquid Glass, open source, MIT.";
+  "For solo builders with ambitious projects: write the backlog, grab a coffee, and come back to a stack of pull requests built by Claude Code agents. A native, open-source Mac app.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ultracodefactory.com"),
-  title: "Code Factory: your backlog on an assembly line",
+  title: "Code Factory: write the backlog, grab a coffee, review the PRs",
   description,
   alternates: { canonical: "/" },
   openGraph: {
