@@ -50,6 +50,33 @@ const features = [
   },
 ];
 
+const tenets = [
+  {
+    title: "The spec is the product.",
+    body: "Code is an implementation detail. The brief, the cards and their acceptance criteria are what you own. Code can be rewritten; a clear spec keeps its value.",
+  },
+  {
+    title: "Docs first, always.",
+    body: "Every project starts with a PROJECT.md, and every change starts as a card that says what and why before anything writes how.",
+  },
+  {
+    title: "Specs live with the code.",
+    body: "Cards are markdown in your repo, versioned in the same commits as the work. No database, no SaaS, no lock-in.",
+  },
+  {
+    title: "You decide, agents do.",
+    body: "You set direction, answer questions and review. Agents do the typing. The factory never merges for you.",
+  },
+  {
+    title: "Small cards, small PRs.",
+    body: "Every card fits in one reviewable pull request. If it can’t, it’s two cards.",
+  },
+  {
+    title: "Review is the job.",
+    body: "Your time is the scarce resource, so it goes to judgement, not keystrokes.",
+  },
+];
+
 const safety = [
   "Agents start in Accept file edits mode. Bypassing permissions is opt-in, with a red warning.",
   "Every command runs without a shell. Prompts and typed text can never become shell syntax.",
@@ -134,6 +161,9 @@ export default function Home() {
             </a>
             <a href="#how" className="hover:text-white">
               How it works
+            </a>
+            <a href="#tenets" className="hover:text-white">
+              Beliefs
             </a>
             <a href="#safety" className="hover:text-white">
               Safety
@@ -296,17 +326,15 @@ export default function Home() {
 
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
             <pre className="glass overflow-x-auto rounded-3xl p-7 font-mono text-[13px] leading-relaxed text-white/80">
-              {`vault/
-└─ Work/
-   └─ my-project/
-      ├─ proposed/
-      ├─ todo/
-      ├─ picked-up/      ← agents move cards
-      ├─ waiting/          as they go
-      ├─ done/
-      └─ wont-do/
-repos/
-└─ my-project/           ← agents work here`}
+              {`my-app/               ← your repo; agents work here
+├─ PROJECT.md         ← the brief, written first
+└─ .codefactory/
+   ├─ proposed/
+   ├─ todo/
+   ├─ picked-up/      ← agents move cards
+   ├─ waiting/          as they go
+   ├─ done/
+   └─ wont-do/`}
             </pre>
             <pre className="glass overflow-x-auto rounded-3xl p-7 font-mono text-[13px] leading-relaxed">
               <span className="text-white/40">---</span>
@@ -324,6 +352,25 @@ repos/
               <span className="text-[#ff8500]">## Acceptance criteria</span>
               {"\n\n"}- [x] Add a failing test{"\n"}- [ ] Fix the parser
             </pre>
+          </div>
+        </Section>
+
+        <Section
+          id="tenets"
+          eyebrow="What we believe"
+          title="Docs first. Code second."
+          sub="Code Factory is built on a few convictions about how one person ships like a team."
+        >
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {tenets.map((t, i) => (
+              <div key={t.title} className="glass rounded-3xl p-7">
+                <span className="font-mono text-xs text-[#ff8500]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-3 text-lg font-semibold">{t.title}</h3>
+                <p className="mt-2 leading-relaxed text-white/60">{t.body}</p>
+              </div>
+            ))}
           </div>
         </Section>
 
