@@ -1,69 +1,384 @@
 import Image from "next/image";
+import AppMock from "@/components/AppMock";
+import QuestionDemo from "@/components/QuestionDemo";
+import {
+  ArrowIcon,
+  BellIcon,
+  BoardIcon,
+  BubbleIcon,
+  FileIcon,
+  GearIcon,
+  ShieldIcon,
+  TerminalIcon,
+  WandIcon,
+} from "@/components/Icons";
+
+const features = [
+  {
+    icon: BoardIcon,
+    title: "A board that watches the disk",
+    body: "Six stations from Proposed to Done. Drag a card and the file moves. Edit it in Obsidian, vim or an agent, and the board updates instantly via FSEvents.",
+  },
+  {
+    icon: WandIcon,
+    title: "Create Work from one line",
+    body: "Type an idea. A headless Claude Code agent researches the repo and writes a real card, while a hazard-striped placeholder holds its spot.",
+  },
+  {
+    icon: TerminalIcon,
+    title: "Agents in real terminals",
+    body: "Run Work and Triage start interactive Claude Code sessions in tmux. Watch them live in full colour, type straight into them, or attach from your own shell.",
+  },
+  {
+    icon: BubbleIcon,
+    title: "Questions become buttons",
+    body: "When an agent asks a multiple-choice question, Code Factory turns the TUI prompt into native buttons. ⌘1–⌘9 and you're done.",
+  },
+  {
+    icon: BellIcon,
+    title: "It taps you on the shoulder",
+    body: "Notifications and a menu bar light tell you when an agent finishes or needs input, so you can walk away from the board.",
+  },
+  {
+    icon: FileIcon,
+    title: "Your cards stay plain text",
+    body: "One markdown file per card, one folder per status. No database or lock-in, and it works with git, grep and whatever comes next.",
+  },
+];
+
+const safety = [
+  "Agents start in Accept file edits mode. Bypassing permissions is opt-in, with a red warning.",
+  "Every command runs without a shell. Prompts and typed text can never become shell syntax.",
+  "Text sent to tmux is typed literally, and named keys come from a fixed allow-list.",
+  "Card and project names are validated, so nothing can escape your vault.",
+  "Deleting a card moves it to the Trash, and a move never overwrites another card.",
+  "No telemetry or network calls of its own. MIT licensed: read every line.",
+];
+
+const steps = [
+  {
+    n: "01",
+    title: "Point it at a vault",
+    body: "Any folder of markdown cards, an Obsidian vault included. Or click Try the Demo Factory.",
+  },
+  {
+    n: "02",
+    title: "Feed the line",
+    body: "Create Work turns ideas into cards. Triage walks the backlog with you, one question at a time.",
+  },
+  {
+    n: "03",
+    title: "Run the line",
+    body: "Run Work hands the next card to an agent in the project's repo. You review, answer, ship.",
+  },
+];
+
+function Section({
+  id,
+  eyebrow,
+  title,
+  sub,
+  children,
+}: {
+  id?: string;
+  eyebrow: string;
+  title: React.ReactNode;
+  sub?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="mx-auto max-w-6xl scroll-mt-24 px-5 py-24">
+      <p className="mb-3 text-center font-mono text-xs uppercase tracking-[0.25em] text-[#ff8500]">
+        {eyebrow}
+      </p>
+      <h2 className="mx-auto max-w-3xl text-center text-4xl font-bold tracking-tight sm:text-5xl">
+        {title}
+      </h2>
+      {sub && (
+        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-white/60">
+          {sub}
+        </p>
+      )}
+      <div className="mt-14">{children}</div>
+    </section>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <>
+      {/* Nav */}
+      <header className="fixed inset-x-0 top-4 z-50 px-4">
+        <nav className="glass mx-auto flex max-w-4xl items-center gap-6 rounded-full py-2 pl-2 pr-2 sm:pl-3">
+          <a href="#" className="flex items-center gap-2 font-semibold">
             <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+              src="/app-icon.png"
+              alt=""
+              width={32}
+              height={32}
+              priority
+              className="rounded-[9px]"
             />
-            Deploy Now
+            Code Factory
           </a>
+          <div className="ml-auto hidden items-center gap-6 text-sm text-white/70 md:flex">
+            <a href="#features" className="hover:text-white">
+              Features
+            </a>
+            <a href="#how" className="hover:text-white">
+              How it works
+            </a>
+            <a href="#safety" className="hover:text-white">
+              Safety
+            </a>
+          </div>
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#install"
+            className="ml-auto rounded-full bg-[#ff8500] px-4 py-2 text-sm font-semibold text-black shadow-[0_0_24px_rgba(255,133,0,.45)] transition hover:brightness-110 md:ml-0"
           >
-            Documentation
+            Get it free
           </a>
+        </nav>
+      </header>
+
+      <main>
+        {/* Hero */}
+        <section className="relative px-5 pb-16 pt-36 text-center sm:pt-44">
+          <div className="float mx-auto mb-8 w-fit">
+            <Image
+              src="/app-icon.png"
+              alt="Code Factory app icon"
+              width={128}
+              height={128}
+              priority
+              className="drop-shadow-[0_20px_50px_rgba(255,133,0,.45)]"
+            />
+          </div>
+          <div className="glass mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs text-white/75">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#4dcc73] shadow-[0_0_8px_#4dcc73]" />
+            Native macOS · Liquid Glass · Open source
+          </div>
+          <h1 className="mx-auto max-w-4xl text-5xl font-extrabold leading-[1.02] tracking-tighter sm:text-7xl">
+            Your backlog,
+            <br />
+            <span className="text-shine">on an assembly line.</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/65 sm:text-xl">
+            Code Factory is a native Mac kanban board for plain-markdown work
+            cards, staffed by Claude Code agents. Drop in ideas, and they come
+            out as shipped code.
+          </p>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="#install"
+              className="group flex items-center gap-2 rounded-full bg-[#ff8500] px-6 py-3 font-semibold text-black shadow-[0_0_40px_rgba(255,133,0,.5)] transition hover:scale-[1.03]"
+            >
+              Build it in one command
+              <ArrowIcon className="transition group-hover:translate-x-0.5" />
+            </a>
+            <a
+              href="#how"
+              className="glass rounded-full px-6 py-3 font-semibold transition hover:bg-white/15"
+            >
+              See how it works
+            </a>
+          </div>
+
+          <div className="mt-20 [perspective:2000px]">
+            <div className="[transform:rotateX(8deg)] transition duration-700 hover:[transform:rotateX(0deg)]">
+              <AppMock />
+            </div>
+          </div>
+        </section>
+
+        {/* Strip */}
+        <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-3 px-5 py-6">
+          {[
+            "SwiftUI",
+            "Liquid Glass",
+            "Claude Code",
+            "tmux",
+            "Plain markdown",
+            "Obsidian-friendly",
+            "MIT",
+          ].map((t) => (
+            <span
+              key={t}
+              className="glass rounded-full px-4 py-1.5 font-mono text-xs text-white/70"
+            >
+              {t}
+            </span>
+          ))}
         </div>
+
+        <Section
+          id="features"
+          eyebrow="The line"
+          title="Everything a factory floor needs"
+          sub="Built natively for the Mac, around files you already own."
+        >
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map(({ icon: Icon, title, body }) => (
+              <div
+                key={title}
+                className="glass group rounded-3xl p-7 transition hover:-translate-y-1 hover:bg-white/[0.09]"
+              >
+                <div className="glass mb-5 grid h-12 w-12 place-items-center rounded-2xl text-[#ff8500] shadow-[0_0_24px_rgba(255,133,0,.25)] transition group-hover:shadow-[0_0_36px_rgba(255,133,0,.5)]">
+                  <Icon />
+                </div>
+                <h3 className="text-lg font-semibold">{title}</h3>
+                <p className="mt-2 leading-relaxed text-white/60">{body}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section
+          eyebrow="Agents ask, you click"
+          title={
+            <>
+              Terminal prompts,{" "}
+              <span className="text-[#ff8500]">native buttons.</span>
+            </>
+          }
+          sub="Code Factory reads Claude's multiple-choice prompt straight off the tmux pane and gives you real controls. Go on, answer it."
+        >
+          <QuestionDemo />
+        </Section>
+
+        <Section
+          id="how"
+          eyebrow="How it works"
+          title="Three stations. Zero ceremony."
+        >
+          <div className="grid gap-4 md:grid-cols-3">
+            {steps.map((s) => (
+              <div
+                key={s.n}
+                className="glass relative overflow-hidden rounded-3xl p-8"
+              >
+                <span className="absolute -right-2 -top-6 font-mono text-[110px] font-black text-white/[0.04]">
+                  {s.n}
+                </span>
+                <span className="font-mono text-sm text-[#ff8500]">{s.n}</span>
+                <h3 className="mt-3 text-xl font-semibold">{s.title}</h3>
+                <p className="mt-2 text-white/60">{s.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <pre className="glass overflow-x-auto rounded-3xl p-7 font-mono text-[13px] leading-relaxed text-white/80">
+              {`vault/
+└─ Work/
+   └─ my-project/
+      ├─ proposed/
+      ├─ todo/
+      ├─ picked-up/      ← agents move cards
+      ├─ waiting/          as they go
+      ├─ done/
+      └─ wont-do/
+repos/
+└─ my-project/           ← agents work here`}
+            </pre>
+            <pre className="glass overflow-x-auto rounded-3xl p-7 font-mono text-[13px] leading-relaxed">
+              <span className="text-white/40">---</span>
+              {"\n"}
+              <span className="text-[#56ccdc]">title</span>: Crash when the
+              config is empty
+              {"\n"}
+              <span className="text-[#56ccdc]">status</span>: todo
+              {"\n"}
+              <span className="text-[#56ccdc]">kind</span>:{" "}
+              <span className="text-[#ff5a5a]">bug</span>
+              {"\n"}
+              <span className="text-white/40">---</span>
+              {"\n\n"}
+              <span className="text-[#ff8500]">## Acceptance criteria</span>
+              {"\n\n"}- [x] Add a failing test{"\n"}- [ ] Fix the parser
+            </pre>
+          </div>
+        </Section>
+
+        <Section
+          id="safety"
+          eyebrow="Hard hats on"
+          title="Safe by default. Paranoid by design."
+          sub="It launches AI agents in your repositories, so the guard rails come built in."
+        >
+          <div className="glass-strong mx-auto grid max-w-4xl gap-x-10 gap-y-5 rounded-3xl p-8 sm:grid-cols-2 sm:p-10">
+            {safety.map((s) => (
+              <div key={s} className="flex gap-3">
+                <ShieldIcon className="mt-0.5 shrink-0 text-[#4dcc73]" />
+                <p className="text-white/75">{s}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section
+          id="install"
+          eyebrow="Clock in"
+          title="Build it in one command"
+          sub="Free and open source. Requires macOS 15+, Claude Code, and tmux. Looks best on macOS 26+ with Liquid Glass."
+        >
+          <div className="glass-strong mx-auto max-w-2xl overflow-hidden rounded-3xl">
+            <div className="flex items-center gap-2 border-b border-white/10 px-5 py-3">
+              <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+              <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+              <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+              <span className="ml-2 font-mono text-xs text-white/40">zsh</span>
+            </div>
+            <pre className="overflow-x-auto p-6 font-mono text-[14px] leading-loose">
+              <span className="text-white/40"># tools</span>
+              {"\n"}
+              <span className="text-[#ff8500]">$</span> brew install xcodegen
+              tmux
+              {"\n\n"}
+              <span className="text-white/40"># build &amp; launch</span>
+              {"\n"}
+              <span className="text-[#ff8500]">$</span> make run
+            </pre>
+          </div>
+          <p className="mt-6 text-center text-sm text-white/50">
+            Example <code className="font-mono">/work-create</code>,{" "}
+            <code className="font-mono">/work</code> and{" "}
+            <code className="font-mono">/work-triage</code> skills ship with the
+            source.
+          </p>
+        </Section>
+
+        {/* Final CTA */}
+        <section className="px-5 pb-24">
+          <div className="glass-strong relative mx-auto max-w-5xl overflow-hidden rounded-[36px] p-12 text-center sm:p-16">
+            <div className="hazard absolute inset-x-0 bottom-0 h-2 opacity-80" />
+            <GearIcon className="spin-slow mx-auto mb-6 h-12 w-12 text-[#ff8500]" />
+            <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
+              Start the line.
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-lg text-white/60">
+              Queue up a backlog, go make coffee, and come back to code to
+              review.
+            </p>
+            <a
+              href="#install"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#ff8500] px-7 py-3.5 font-semibold text-black shadow-[0_0_40px_rgba(255,133,0,.5)] transition hover:scale-[1.03]"
+            >
+              Get Code Factory <ArrowIcon />
+            </a>
+          </div>
+        </section>
       </main>
-    </div>
+
+      <footer className="border-t border-white/10 px-5 py-10 text-center text-sm text-white/40">
+        <p>
+          Code Factory is open source under the MIT License. An independent
+          project, not affiliated with or endorsed by Anthropic.
+        </p>
+        <p className="mt-1">
+          “Claude” and “Claude Code” are trademarks of their owner.
+        </p>
+      </footer>
+    </>
   );
 }
