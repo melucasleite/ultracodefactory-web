@@ -21,13 +21,20 @@ A single static page built with Next.js (App Router) and Tailwind CSS v4:
 
 - **Aurora and glass styling** to match the app's Liquid Glass look, in plain
   CSS ([`src/app/globals.css`](src/app/globals.css)).
-- **App window mock** ([`src/components/AppMock.tsx`](src/components/AppMock.tsx)),
-  built in HTML and CSS rather than a screenshot, so it stays sharp at any size.
+- **Factory-line hero** ([`src/components/FactoryLine.tsx`](src/components/FactoryLine.tsx)):
+  an animated trip down the line, from a card going in to a pull request
+  coming out.
+- **Animated "magic moments"**
+  ([`src/components/MagicMoments.tsx`](src/components/MagicMoments.tsx))
+  showing what the app does for you, step by step.
 - **Interactive question demo**
   ([`src/components/QuestionDemo.tsx`](src/components/QuestionDemo.tsx)) showing
   how Ultra Code Factory turns Claude's terminal prompts into native buttons.
-- **Generated Open Graph image**
-  ([`src/app/opengraph-image.tsx`](src/app/opengraph-image.tsx)) for link previews.
+- **Real app screenshots** in [`public/screens`](public/screens), for the
+  hero and the "See it in action" gallery.
+- **SEO and sharing**: a generated Open Graph image
+  ([`src/app/opengraph-image.tsx`](src/app/opengraph-image.tsx)), a sitemap,
+  `robots.txt` and a web app manifest.
 - **Vercel Web Analytics** for privacy-friendly page views, with no cookies.
 
 ## The app
