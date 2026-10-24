@@ -46,8 +46,11 @@ yarn dev
 
 ```bash
 yarn build
-vercel deploy --prod --scope lucas-crafts
 ```
+
+The site deploys automatically with Vercel: every push to `main` goes to
+production at ultracodefactory.com, and other branches and pull requests get
+preview URLs.
 
 Formatting and linting:
 
